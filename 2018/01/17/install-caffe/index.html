@@ -13,7 +13,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/01/17/install-caffe/index.html">
 <meta property="og:site_name" content="Welcome">
 <meta property="og:description" content="install caffe在ubuntu 16.04上安裝caffe，支持python接口，並且選擇：  python2.7, Anaconda cuda8, cudnn6 no opencv  這裏假設已經提前安裝好cuda8, cudnn6和anaconda。 參考過程主要是：  http://caffe.berkeleyvision.org/installation.html http://">
-<meta property="og:updated_time" content="2018-02-07T03:25:15.192Z">
+<meta property="og:updated_time" content="2018-02-07T03:59:07.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="install-caffe">
 <meta name="twitter:description" content="install caffe在ubuntu 16.04上安裝caffe，支持python接口，並且選擇：  python2.7, Anaconda cuda8, cudnn6 no opencv  這裏假設已經提前安裝好cuda8, cudnn6和anaconda。 參考過程主要是：  http://caffe.berkeleyvision.org/installation.html http://">
@@ -104,7 +104,7 @@
 <h2 id="Step-4-編譯"><a href="#Step-4-編譯" class="headerlink" title="Step 4: 編譯"></a>Step 4: 編譯</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make all -j4</span><br></pre></td></tr></table></figure>
 <p>如果出現跟protobuf相關的錯誤，檢查是否有多個protobuf的版本（<a href="https://github.com/BVLC/caffe/issues/5645）。注意，更改环境或库后，别忘记make" target="_blank" rel="noopener">https://github.com/BVLC/caffe/issues/5645）。注意，更改环境或库后，别忘记make</a> clean，以及已经在caffe-py27的虚拟python环境中。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make <span class="built_in">test</span> -j4</span><br></pre></td></tr></table></figure></p>
 <p>將$(ANACONDA_HOME)/lib（例如/home/maiqi/yalong/software/anaconda3/envs/caffe-py27/lib）加入到LD_LIBRARY_PATH中。否則，在make runtest時可能提示找不到libprotofo.so。因而，可以將export LD_LIBRARY_PATH=/home/maiqi/yalong/software/anaconda3/envs/caffe-py27/lib:$LD_LIBRARY_PATH 加入到~/.bashrc，並且source ~/.bashrc<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make runtest -j4</span><br></pre></td></tr></table></figure></p>
-<h2 id="Step-5-caffe-python"><a href="#Step-5-caffe-python" class="headerlink" title="Step 5: caffe python"></a>Step 5: caffe python</h2><p>執行make pycaffe，然後設定PYTHONPATH，例如添加export PYTHONPATH=/home/maiqi/yalong/library/caffe/python:PYTHONPYTH到~/.bashrc，並且source ~/.bashrc</p>
+<h2 id="Step-5-caffe-python"><a href="#Step-5-caffe-python" class="headerlink" title="Step 5: caffe python"></a>Step 5: caffe python</h2><p>執行make pycaffe，然後設定PYTHONPATH，例如添加export PYTHONPATH=/home/maiqi/yalong/library/caffe/python:PYTHONPATH到~/.bashrc，並且source ~/.bashrc</p>
 <p>驗證，在caffe-py27的python環境下，import caffe; print(caffe.__version__)</p>
 <h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>有幾個注意的地方：</p>
 <ol>
@@ -116,7 +116,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/17/install-caffe/" data-id="cjdcihcl100026a7y2ky3wfju" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/17/install-caffe/" data-id="cjdcjotrz0000kc7ycnbruuuw" class="article-share-link">Teilen</a>
       
       
     </footer>

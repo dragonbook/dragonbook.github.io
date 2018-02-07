@@ -102,7 +102,7 @@
 <h2 id="Step-4-編譯"><a href="#Step-4-編譯" class="headerlink" title="Step 4: 編譯"></a>Step 4: 編譯</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make all -j4</span><br></pre></td></tr></table></figure>
 <p>如果出現跟protobuf相關的錯誤，檢查是否有多個protobuf的版本（<a href="https://github.com/BVLC/caffe/issues/5645）。注意，更改环境或库后，别忘记make" target="_blank" rel="noopener">https://github.com/BVLC/caffe/issues/5645）。注意，更改环境或库后，别忘记make</a> clean，以及已经在caffe-py27的虚拟python环境中。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make <span class="built_in">test</span> -j4</span><br></pre></td></tr></table></figure></p>
 <p>將$(ANACONDA_HOME)/lib（例如/home/maiqi/yalong/software/anaconda3/envs/caffe-py27/lib）加入到LD_LIBRARY_PATH中。否則，在make runtest時可能提示找不到libprotofo.so。因而，可以將export LD_LIBRARY_PATH=/home/maiqi/yalong/software/anaconda3/envs/caffe-py27/lib:$LD_LIBRARY_PATH 加入到~/.bashrc，並且source ~/.bashrc<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make runtest -j4</span><br></pre></td></tr></table></figure></p>
-<h2 id="Step-5-caffe-python"><a href="#Step-5-caffe-python" class="headerlink" title="Step 5: caffe python"></a>Step 5: caffe python</h2><p>執行make pycaffe，然後設定PYTHONPATH，例如添加export PYTHONPATH=/home/maiqi/yalong/library/caffe/python:PYTHONPYTH到~/.bashrc，並且source ~/.bashrc</p>
+<h2 id="Step-5-caffe-python"><a href="#Step-5-caffe-python" class="headerlink" title="Step 5: caffe python"></a>Step 5: caffe python</h2><p>執行make pycaffe，然後設定PYTHONPATH，例如添加export PYTHONPATH=/home/maiqi/yalong/library/caffe/python:PYTHONPATH到~/.bashrc，並且source ~/.bashrc</p>
 <p>驗證，在caffe-py27的python環境下，import caffe; print(caffe.__version__)</p>
 <h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>有幾個注意的地方：</p>
 <ol>
@@ -114,7 +114,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/17/install-caffe/" data-id="cjdcihcl100026a7y2ky3wfju" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/17/install-caffe/" data-id="cjdcjotrz0000kc7ycnbruuuw" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -162,7 +162,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/16/install-cuda-cudnn-pytorch-tensorflow-etc/" data-id="cjdcihckz00016a7y0mo5qtcn" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/16/install-cuda-cudnn-pytorch-tensorflow-etc/" data-id="cjdcjots80003kc7ymp0rkw4z" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -207,7 +207,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/16/hello-world/" data-id="cjdcihckt00006a7yf8kncrsi" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/16/hello-world/" data-id="cjdcjots40001kc7yyvp78kgx" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -245,7 +245,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/13/ubuntu下解决搜狗拼音不能正常输入的可尝试方法/" data-id="cjdcihcl200036a7y7jc137dt" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/13/ubuntu下解决搜狗拼音不能正常输入的可尝试方法/" data-id="cjdcjots60002kc7ye4fc95qd" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu-搜狗拼音输入法/">ubuntu, 搜狗拼音输入法</a></li></ul>
@@ -324,7 +324,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/03/编译vtk 7.0，pcl 1.8.0和itk 1.14.0/" data-id="cjdcihcl400046a7y34mcyhj4" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/05/03/编译vtk 7.0，pcl 1.8.0和itk 1.14.0/" data-id="cjdcjotst0006kc7ynqenqz77" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vtk-itk-pcl/">vtk, itk, pcl</a></li></ul>
