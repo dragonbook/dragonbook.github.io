@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <title>编译vtk 7.0，pcl 1.8.0和itk 1.14.0 | Welcome</title>
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main">
+          <article id="post-编译vtk 7.0，pcl 1.8.0和itk 1.14.0" class="article article-type-post" itemscope itemprop="blogPost">
+
+            <div class="article-inner">
+
+
+              <header class="article-header">
+
+
+                <h1 class="article-title" itemprop="name">
+                  编译vtk 7.0，pcl 1.8.0和itk 1.14.0
+                </h1>
+
+
+              </header>
+
+              <div class="article-entry" itemprop="articleBody">
+
+                <h1 id="ubuntu下编译vtk，pcl和itk"><a href="#ubuntu下编译vtk，pcl和itk" class="headerlink" title="ubuntu下编译vtk，pcl和itk"></a>ubuntu下编译vtk，pcl和itk</h1>
+                <p>如何在ubuntu16.04下编译vtk7.0，pcl1.8.0和itk4.11（动态链接库，Release版本）？</p>
+                <hr>
+                <h2 id="1-编译vtk-7-0"><a href="#1-编译vtk-7-0" class="headerlink" title="1. 编译vtk 7.0"></a>1. 编译vtk 7.0</h2>
+                <p>下载vtk7.0源码，参考官方的<a href="http://www.vtk.org/Wiki/VTK/Configure_and_Build" target="_blank" rel="noopener">编译vtk指南</a>，大致有以下步骤：</p>
+                <h3 id="Step-1-可能需要安装一些依赖，包括x11和opengl"><a href="#Step-1-可能需要安装一些依赖，包括x11和opengl" class="headerlink"
+                    title="Step 1: 可能需要安装一些依赖，包括x11和opengl"></a>Step 1: 可能需要安装一些依赖，包括x11和opengl</h3>
+                <figure class="highlight bash">
+                  <table>
+                    <tr>
+                      <td class="gutter">
+                        <pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+                      </td>
+                      <td class="code">
+                        <pre><span class="line">sudo apt-get install libx11-dev libxext-dev libxtst-dev libxrender-dev libxmu-dev libxmuu-dev <span class="comment"># x11</span></span><br><span class="line">sudo apt-get install build-essential libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev <span class="comment"># opengl</span></span><br></pre>
+                      </td>
+                    </tr>
+                  </table>
+                </figure>
+                <h3 id="Step-2-安装qt（可选步骤，可跳过），建议使用installer（例如qt-opensource-linux-x64-5-6-2-run）而不是从源码编译"><a href="#Step-2-安装qt（可选步骤，可跳过），建议使用installer（例如qt-opensource-linux-x64-5-6-2-run）而不是从源码编译"
+                    class="headerlink" title="Step 2: 安装qt（可选步骤，可跳过），建议使用installer（例如qt-opensource-linux-x64-5.6.2.run）而不是从源码编译"></a>Step
+                  2: 安装qt（可选步骤，可跳过），建议使用installer（例如qt-opensource-linux-x64-5.6.2.run）而不是从源码编译</h3>
+                <figure class="highlight bash">
+                  <table>
+                    <tr>
+                      <td class="gutter">
+                        <pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+                      </td>
+                      <td class="code">
+                        <pre><span class="line">chmod 777 qt-opensource-linux-x64-5.6.2.run</span><br><span class="line">./qt-opensource-linux-x64-5.6.2.run</span><br></pre>
+                      </td>
+                    </tr>
+                  </table>
+                </figure>
+                <p>选择安装到自定义目录（例如/home/aaron/yalong/software/Qt5.6.2），或者默认目录</p>
+                <h3 id="Step-3-使用cmake配置vtk相关编译选项，这里采用cmake-gui进行配置，生成Makefile"><a href="#Step-3-使用cmake配置vtk相关编译选项，这里采用cmake-gui进行配置，生成Makefile"
+                    class="headerlink" title="Step 3: 使用cmake配置vtk相关编译选项，这里采用cmake-gui进行配置，生成Makefile"></a>Step 3:
+                  使用cmake配置vtk相关编译选项，这里采用cmake-gui进行配置，生成Makefile</h3>
+                <p>首先，安装cmake-gui程序<br>
+                  <figure class="highlight bash">
+                    <table>
+                      <tr>
+                        <td class="gutter">
+                          <pre><span class="line">1</span><br></pre>
+                        </td>
+                        <td class="code">
+                          <pre><span class="line">sudo apt-get install cmake-qt-gui</span><br></pre>
+                        </td>
+                      </tr>
+                    </table>
+                  </figure>
+                </p>
+                <p>启动cmake-gui图形应用程序后，选择下载的vtk解压的目录（例如/home/aaron/yalong/library/VTK-7.0.0）为源目录，创建一个新的目录（例如/home/aaron/yalong/library/VTK-7.0.0-build-release）作为build目录，这里只编译release版本的动态库。配置cmake时需要调整的项目</p>
+                <ul>
+                  <li>CMAKE_BUILD_TYPE: Release</li>
+                  <li>BUILD_SHARED_LIBS: On</li>
+                </ul>
+                <p>（为了减少编译时间）</p>
+                <ul>
+                  <li>BUILD_TESTING: Off</li>
+                  <li>BUILD_EXAMPLES: Off</li>
+                  <li>BUILD_DOCUMENT: Off</li>
+                </ul>
+                <p>如果想启用qt的支持，则勾选VTK_Group_Qt选项，然后Configure。如果有报错，找不到合适的qt，比如可能提示如下：<br>
+                  <figure class="highlight plain">
+                    <table>
+                      <tr>
+                        <td class="gutter">
+                          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre>
+                        </td>
+                        <td class="code">
+                          <pre><span class="line">CMake Error at /usr/share/cmake-3.5/Modules/FindQt4.cmake:1326 (message):</span><br><span class="line">  Found unsuitable Qt version &quot;&quot; from NOTFOUND, this code requires Qt 4.x</span><br><span class="line">Call Stack (most recent call first):</span><br><span class="line">  GUISupport/Qt/CMakeLists.txt:71 (find_package)</span><br></pre>
+                        </td>
+                      </tr>
+                    </table>
+                  </figure>
+                </p>
+                <p>那么手工设置cmake中qt相关的项，帮助寻找安装好的qt</p>
+                <ul>
+                  <li>
+                    <p>设置QT_QMAKE_EXECUTABLE=/home/aaron/yalong/software/Qt5.6.2/5.6/gcc_64/bin/qmake，设置VTK_QT_VERSION=5，点击Configure。接着可能会提示如下错误：</p>
+                    <figure class="highlight plain">
+                      <table>
+                        <tr>
+                          <td class="gutter">
+                            <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre>
+                          </td>
+                          <td class="code">
+                            <pre><span class="line">CMake Error at GUISupport/Qt/CMakeLists.txt:58 (find_package):</span><br><span class="line">  By not providing &quot;FindQt5.cmake&quot; in CMAKE_MODULE_PATH this project has</span><br><span class="line">  asked CMake to find a package configuration file provided by &quot;Qt5&quot;, but</span><br><span class="line">  CMake did not find one.</span><br><span class="line"></span><br><span class="line">  Could not find a package configuration file provided by &quot;Qt5&quot; with any of</span><br><span class="line">  the following names:</span><br><span class="line"></span><br><span class="line">    Qt5Config.cmake</span><br><span class="line">    qt5-config.cmake</span><br><span class="line"></span><br><span class="line">  Add the installation prefix of &quot;Qt5&quot; to CMAKE_PREFIX_PATH or set &quot;Qt5_DIR&quot;</span><br><span class="line">  to a directory containing one of the above files.  If &quot;Qt5&quot; provides a</span><br><span class="line">  separate development package or SDK, be sure it has been installed.</span><br></pre>
+                          </td>
+                        </tr>
+                      </table>
+                    </figure>
+                  </li>
+                  <li>
+                    <p>按照提示，可以将Qt5_DIR设置为/home/aaron/yalong/software/Qt5.6.2/5.6/gcc_64/lib/cmake/Qt5，因为该目录下包含Qt5Config.cmake文件</p>
+                  </li>
+                </ul>
+                <p>在调整相关编译选项时，比如设置目录或开启和关闭某些选项后，需要多次点击Configure，并且调整至最后没有错误提示，最后点击Generate，生成Makefile</p>
+                <h3 id="Step-4-编译和安装"><a href="#Step-4-编译和安装" class="headerlink" title="Step 4: 编译和安装"></a>Step 4:
+                  编译和安装</h3>
+                <figure class="highlight bash">
+                  <table>
+                    <tr>
+                      <td class="gutter">
+                        <pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+                      </td>
+                      <td class="code">
+                        <pre><span class="line">make <span class="comment"># 或者make -j4，多线程编译提升编译速度</span></span><br><span class="line">sudo make install <span class="comment"># 默认情况下libs会安装到/usr/loca/lib目录下，具体位置也可在cmake选项内设置</span></span><br></pre>
+                      </td>
+                    </tr>
+                  </table>
+                </figure>
+                <h3 id="Step-5-测试"><a href="#Step-5-测试" class="headerlink" title="Step 5: 测试"></a>Step 5: 测试</h3>
+                <p>建立一个使用vtk的main.cpp文件，完成读取ply，写成stl的功能<br>
+                  <figure class="highlight c++">
+                    <table>
+                      <tr>
+                        <td class="gutter">
+                          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre>
+                        </td>
+                        <td class="code">
+                          <pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vtkSmartPointer.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vtkPolyData.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vtkPLYReader.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vtkSTLWriter.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (argc &gt; <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> inFileName&#123; argv[<span class="number">1</span>] &#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> outFileName&#123; argv[<span class="number">2</span>] &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">auto</span> reader = vtkSmartPointer&lt;vtkPLYReader&gt;::New();</span><br><span class="line">        </span><br><span class="line">        reader-&gt;SetFileName(inFileName.c_str());</span><br><span class="line">        reader-&gt;Update();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">auto</span> mesh = reader-&gt;GetOutput();</span><br><span class="line">        <span class="keyword">auto</span> writer = vtkSmartPointer&lt;vtkSTLWriter&gt;::New();</span><br><span class="line">        </span><br><span class="line">        writer-&gt;SetFileName(outFileName.c_str());</span><br><span class="line">        writer-&gt;SetInputData(mesh);</span><br><span class="line">        writer-&gt;Write();</span><br><span class="line">        writer-&gt;Update();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Usage: main mesh.ply mesh.stl"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre>
+                        </td>
+                      </tr>
+                    </table>
+                  </figure>
+                </p>
+                <p>使用cmake构建工程<br>
+                  <figure class="highlight cmake">
+                    <table>
+                      <tr>
+                        <td class="gutter">
+                          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre>
+                        </td>
+                        <td class="code">
+                          <pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>)</span><br><span class="line"><span class="keyword">project</span>(hellovtk)</span><br><span class="line"></span><br><span class="line"><span class="comment"># enable c++11</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_FLAGS <span class="string">"$&#123;CMAKE_CXX_FLAGS&#125; -std=c++11"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># vtk</span></span><br><span class="line"><span class="keyword">find_package</span>(VTK REQUIRED)</span><br><span class="line"><span class="keyword">include</span>(<span class="variable">$&#123;VTK_USE_FILE&#125;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(main main.cpp)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(main <span class="variable">$&#123;VTK_LIBRARIES&#125;</span>)</span><br></pre>
+                        </td>
+                      </tr>
+                    </table>
+                  </figure>
+                </p>
+                <hr>
+                <h2 id="编译PCL-1-8-0"><a href="#编译PCL-1-8-0" class="headerlink" title="编译PCL 1.8.0"></a>编译PCL 1.8.0</h2>
+                <p>下载pcl 1.8.0源码，按照pcl官网的<a href="http://pointclouds.org/documentation/tutorials/compiling_pcl_posix.php"
+                    target="_blank" rel="noopener">编译指南</a>进行编译，主要有以下几步：</p>
+                <h3 id="Step-1-安装pcl的必要依赖，vtk（已安装）、eigen、flann和boost"><a href="#Step-1-安装pcl的必要依赖，vtk（已安装）、eigen、flann和boost"
+                    class="headerlink" title="Step 1: 安装pcl的必要依赖，vtk（已安装）、eigen、flann和boost"></a>Step 1:
+                  安装pcl的必要依赖，vtk（已安装）、eigen、flann和boost</h3>
+                <p>eigen，flann和boost在ubuntu下都可以通过apt-get安装，具体可先使用apt-cache search先查找合适的版本，然后apt-get install进行安装<br>
+                  <figure class="highlight bash">
+                    <table>
+                      <tr>
+                        <td class="gutter">
+                          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre>
+                        </td>
+                        <td class="code">
+                          <pre><span class="line">aaron@pc:~$ sudo apt-get install libeigen3-dev </span><br><span class="line">aaron@pc:~$ sudo apt-get install libflann-dev </span><br><span class="line">aaron@pc:~$ sudo apt-get install libboost-dev</span><br></pre>
+                        </td>
+                      </tr>
+                    </table>
+                  </figure>
+                </p>
+                <p>其中，pcl依赖boost的system, filesystem, thread, date_time, iostreams,
+                  chrono模块。如果在cmake时提示缺少某一个模块，可直接安装该模块。比如缺少filesystem<br>
+                  <figure class="highlight bash">
+                    <table>
+                      <tr>
+                        <td class="gutter">
+                          <pre><span class="line">1</span><br></pre>
+                        </td>
+                        <td class="code">
+                          <pre><span class="line">aaron@pc:~$ sudo apt-get install libboost-filesystem-dev</span><br></pre>
+                        </td>
+                      </tr>
+                    </table>
+                  </figure>
+                </p>
+                <figure class="highlight plain">
+                  <table>
+                    <tr>
+                      <td class="gutter">
+                        <pre><span class="line">1</span><br></pre>
+                      </td>
+                      <td class="code">
+                        <pre><span class="line">openni不是必须的依赖，这里不安装它</span><br></pre>
+                      </td>
+                    </tr>
+                  </table>
+                </figure>
+                <h3 id="Step-2-配置cmake，生成Makefile；编译并安装"><a href="#Step-2-配置cmake，生成Makefile；编译并安装" class="headerlink"
+                    title="Step 2: 配置cmake，生成Makefile；编译并安装"></a>Step 2: 配置cmake，生成Makefile；编译并安装</h3>
+                <p>CMAKE_BUILD_TYPE: Release</p>
+                <h3 id="Step-3-测试，cmake示例"><a href="#Step-3-测试，cmake示例" class="headerlink" title="Step 3: 测试，cmake示例"></a>Step
+                  3: 测试，cmake示例</h3>
+                <figure class="highlight cmake">
+                  <table>
+                    <tr>
+                      <td class="gutter">
+                        <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre>
+                      </td>
+                      <td class="code">
+                        <pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span> FATAL_ERROR)</span><br><span class="line"><span class="keyword">project</span>(hellopcl)</span><br><span class="line"></span><br><span class="line"><span class="keyword">find_package</span>(PCL <span class="number">1.8</span> REQUIRED)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;PCL_INCLUDE_DIRS&#125;</span>)</span><br><span class="line"><span class="keyword">link_directories</span>(<span class="variable">$&#123;PCL_LIBRARY_DIRS&#125;</span>)</span><br><span class="line"><span class="keyword">add_definitions</span>(<span class="variable">$&#123;PCL_DEFINITIONS&#125;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(main main.cpp)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(main <span class="variable">$&#123;PCL_LIBRARIES&#125;</span>)</span><br></pre>
+                      </td>
+                    </tr>
+                  </table>
+                </figure>
+                <hr>
+                <h2 id="编译itk-1-14-0"><a href="#编译itk-1-14-0" class="headerlink" title="编译itk 1.14.0"></a>编译itk 1.14.0</h2>
+                <p>itk基本没有外部依赖。如果需要启用跟vtk模块的交互，在cmake中开启选项itk_vtk_glue。当然，还需要设置built_type等基本选项（比如关闭doc, example,
+                  doxgen和testing编译选项）。如果发现报如下跟kwstyle相关的错，可使用apt-get install安装kwstyle<br>
+                  <figure class="highlight plain">
+                    <table>
+                      <tr>
+                        <td class="gutter">
+                          <pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+                        </td>
+                        <td class="code">
+                          <pre><span class="line">CMake Error at /usr/share/cmake-3.5/Modules/ExternalProject.cmake:1757 (message):</span><br><span class="line">  error: could not find git for clone of KWStyle</span><br></pre>
+                        </td>
+                      </tr>
+                    </table>
+                  </figure>
+                </p>
+                <p>cmake文件示例<br>
+                  <figure class="highlight cmake">
+                    <table>
+                      <tr>
+                        <td class="gutter">
+                          <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre>
+                        </td>
+                        <td class="code">
+                          <pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span> FATAL_ERROR)</span><br><span class="line"><span class="keyword">project</span>(helloitk)</span><br><span class="line"></span><br><span class="line"><span class="keyword">find_package</span>(ITK REQUIRED)</span><br><span class="line"><span class="keyword">include</span>(<span class="variable">$&#123;ITK_USE_FILE&#125;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(main main.cpp)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(main <span class="variable">$&#123;ITK_LIBRARIES&#125;</span>)</span><br></pre>
+                        </td>
+                      </tr>
+                    </table>
+                  </figure>
+                </p>
+
+
+              </div>
+
+            </div>
+
+          </article>
+
+        </section>
+
+      </div>
+    </div>
+
+
+  </div>
+</body>
+
+</html>
