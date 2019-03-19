@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome</title>
+  </head>
+  <body>
+      <h2>pytorch-scatter, error, libcudart.so.9.2: cannot open shared object file: No such file or directory</h2>
+      <p>找不到libcudart.so，一种可能是库的路径未设置正确，另一种可能是不存在该库，例如库的版本不对，需要的跟存在的不匹配。
+
+      例如最近使用pip再次安装torch-scatter时，pip没有重新编译库的cuda extension，出现了上述错误。
+
+      初次安装时，会编译包的相关文件，并缓存到~/.cache/pip/wheels下。并且pip uninstall没有删除该库的cache，
+      导致再次安装时，没有重新编译。这可能带来问题，例如之前的环境（例如cuda版本）跟当前再次安装时需要的环境不一样，
+      将导致找不到相关依赖文件。
+      
+      可以通过删除~/.cache/pip/wheels下的文件来解决。
+    </p>
+  </body>
+</html>
