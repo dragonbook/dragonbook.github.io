@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Kali-game</title>
+  </head>
+  <body>
+      <h1 class="center">卡莉魔法对战游戏：冰与火之歌</h1>
+      <h2 class="center">李亚龙 丁苡恒</h2>
+      <p>
+          我们开发了一款基于Kinect的3D体感交互游戏。两位玩家可同时通过自身的姿势或动作，
+          控制各自的虚拟角色（卡莉）在竞技场中进行魔法对战。两个卡莉分别拥有冰属性和火属性的魔法，它们可施展远距离的魔法攻击，或者张开护盾进行防护。
+          我们借助于计算机视觉技术以及深度摄像机，同时跟踪两位玩家的人脸和骨架节点，对他们的姿势或动作进行识别，并将其转化为虚拟角色的行动，
+          例如，采用基本的姿势使角色向某些方向持续奔跑，人体的特定动作控制角色的特定魔法攻击。我们花费了较多的时间去设计游戏的玩法、卡莉角色的基本动作和魔法以及玩家对应的控制姿势和动作，以增加游戏的可玩性和有趣性。
+      </p>
+
+      <video class="center-video" controls>
+        <source src='demo.mp4' type='video/mp4'>
+        Sorry, your browser doesn't support embedded videos.
+      </video>
+
+      <h2>开发工具和库</h2>
+      <ul>
+          <li>基于Windows平台</li>
+          <li>使用OpenCV进行人脸识别和跟踪</li>
+          <li>使用OpenNI, Kinect SDK获取RGBD图像以及人体骨架节点信息</li>
+          <li>使用Ogre引擎进行图形渲染</li>
+          <li>使用3dsMax, OgreMax进行3D角色和场景建模，使用Orge wiki提供的Particle Editor完成魔法效果</li>
+      </ul>
+
+      <h2>其他</h2>
+      <p>
+        该项目开发于2013年学院的大三暑期科研实训。我们小组（两人）使用深度摄像机和基于计算机视觉的技术，以曾经玩过的3D动作游戏<a href="https://baike.baidu.com/item/%E9%BE%99%E4%B9%8B%E8%B0%B7/5640450?fr=aladdin">《龙之谷》</a>为基础，设计和开发了这款体感竞技游戏。
+        该项目由中山大学软件学院智能媒体计算实验室开展，在视觉算法方面受实验室的<a href="http://kezewang.com/">王可泽</a>师兄指导。
+      </p>
+
+  </body>
+
+  <style>
+      .center {
+        text-align: center;
+      }
+      .center-video {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+      }
+  </style>
+</html>
+
